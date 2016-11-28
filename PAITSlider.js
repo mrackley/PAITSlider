@@ -70,8 +70,8 @@ $.fn.PAITSlider= function (options)
 			call2.done(function (data,textStatus, jqXHR){
 				for(index in data.d.results)
 				{
-						$("#PAITSlides").append("<li onclick='window.location=\"" + data.d.results[index].LinkLocation.Url + 
-						"\"' ><div style=\"background-image: url('"+data.d.results[index].BackgroundImageLocation.Url +
+						$("#PAITSlides").append("<li><div onclick='window.location=\"" + data.d.results[index].LinkLocation.Url + 
+						"\"' style=\"background-image: url('"+data.d.results[index].BackgroundImageLocation.Url +
 						"');\" class='PAITSlide'>"+data.d.results[index].Description+"</div></li>");
 				}		
 				$('.PAITSlider').unslider({
