@@ -18,10 +18,11 @@
 
 $.fn.PAITSlider= function (options)
 {
-
+	var sliderdfd = $.Deferred();
+	
 	document.write('<div class="PAITSlider"><ul id="PAITSlides"></ul></div>');
 	
-     var opt = $.extend({}, {
+	var opt = $.extend({}, {
 		listName: 'PromotedLinks',
 		viewTitle: 'All Promoted Links',
 		prev: "<",
@@ -33,9 +34,9 @@ $.fn.PAITSlider= function (options)
 		dots: true,
 		keys: true,
 		delay: 5000					
-    }, options);
+	}, options);
 
-		 var url = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('" + opt.listName + "')/Views/getbytitle('" + opt.viewTitle + "')";
+		var url = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('" + opt.listName + "')/Views/getbytitle('" + opt.viewTitle + "')";
 
 		var call = $.ajax({
 			url: url,
@@ -86,7 +87,8 @@ $.fn.PAITSlider= function (options)
 				
 				$("a.prev").html(opt.prev);
 				$("a.next").html(opt.next);
-
+				
+				sliderdfd.resolve();
 			});
 		
 			call2.fail(function (jqXHR,textStatus,errorThrown){
@@ -97,5 +99,7 @@ $.fn.PAITSlider= function (options)
 
 		call.fail(function (jqXHR,textStatus,errorThrown){
 			alert("Error retrieving view: " + jqXHR.responseText);
-		});		
+		});
+	
+		return sliderdfd;
 }
